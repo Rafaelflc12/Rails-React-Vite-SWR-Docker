@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estoque_pedidos: one
+  produto_produtos: one
+  quantidade: 1
+  preco: 9.99
+
+two:
+  estoque_pedidos: two
+  produto_produtos: two
+  quantidade: 1
+  preco: 9.99

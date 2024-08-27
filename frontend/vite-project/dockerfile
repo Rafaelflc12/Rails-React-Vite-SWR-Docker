@@ -1,0 +1,21 @@
+# Etapa 1: Construção
+FROM node:20.17.0 AS build
+
+# Defina o diretório de trabalho
+WORKDIR /vite-project
+
+# Copie os arquivos de configuração
+COPY ../package.json yarn.lock ./
+
+# Instale as dependências
+RUN yarn install
+
+# Copie o restante do código da aplicação
+COPY . .
+
+# Construa o projeto
+RUN yarn build
+
+
+# # Comando para rodar o Vite
+CMD ["yarn", "dev", "--host", "--port", "8080"]
