@@ -14,7 +14,7 @@ CREATE TABLE produtos (
 DO $$
 BEGIN
     IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'rafael') THEN
-        CREATE USER rafael WITH SUPERUSER PASSWORD 'sua_senha';
+        CREATE USER rafael WITH SUPERUSER PASSWORD 'password';
     END IF;
 END $$;
 

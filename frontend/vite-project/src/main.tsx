@@ -1,6 +1,5 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client'; // Use createRoot em vez de ReactDOM
-import { ApiProvider } from './contexts/ApiContext';
 import App from './App';
 
 // Criação da raiz usando createRoot
@@ -10,9 +9,7 @@ if (rootElement) {
   // Renderização do componente
   root.render(
     <React.StrictMode>
-      <ApiProvider>
         <App />
-      </ApiProvider>
     </React.StrictMode>
   );
 }

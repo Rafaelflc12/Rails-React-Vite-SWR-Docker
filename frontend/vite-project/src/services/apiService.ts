@@ -1,7 +1,6 @@
-import useSWR from 'swr';
 
 
-const fetcher = async (url: string) => {
+export const fetcher = async (url: string) => {
     try {
       console.log("Fetching URL:", url);
       const res = await fetch(url);
@@ -17,6 +16,3 @@ const fetcher = async (url: string) => {
       throw error;
     }
   };
-
-export const useFetchProduto = (id: string) => useSWR(`/api/produto/produtos/${id}`, fetcher);
-export const useFetchProdutos = () => useSWR('/api/produto/produtos', fetcher);

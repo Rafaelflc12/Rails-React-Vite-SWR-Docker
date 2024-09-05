@@ -12,10 +12,10 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''), // Remove o /api da URL
       },
       // Redireciona a rota raiz ("/") para o backend
-      '^/$': {
-        target: 'http://web:3000', // URL do backend
-        changeOrigin: true,
-      },
+      // '^/$': {
+      //   target: 'http://web:3000', // URL do backend
+      //   changeOrigin: true,
+      // },
     },
   },
 });

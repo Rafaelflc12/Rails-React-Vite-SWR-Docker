@@ -5,6 +5,7 @@ class Estoque::PedidosController < ApplicationController
   # GET /estoque/pedidos.json
   def index
     @estoque_pedidos = Estoque::Pedido.all
+    render json: @estoque_pedidos
   end
 
   # GET /estoque/pedidos/1
