@@ -10,6 +10,11 @@
 #   inflect.uncountable %w( fish sheep )
 # end
 
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  # O inflector padrão (inglês) não pluraliza "categoria". Força o plural PT-BR.
+  inflect.irregular "categoria", "categorias"
+end
+
 # These inflection rules are supported but not enabled by default:
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
