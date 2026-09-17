@@ -1,5 +1,2 @@
-class ApplicationController < ActionController::Base
-    def index
-    end
-    
+class ApplicationController < ActionController::API
 end
