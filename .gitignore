@@ -7,9 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files (except templates).
+# Ignore all environment files (except templates and the example).
 /.env*
 !/.env*.erb
+!/.env.example
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -22,29 +23,27 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
-# Ignore storage (uploaded files in development and any SQLite databases).
+# Ignore storage (uploaded files in development).
 /storage/*
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/node_modules
-/yarn-error.log
-/yarn.lock
-/tmp
-/log/*.log
-!/log/.keep
-!/log/.gitkeep
+# Ignore SQLite databases (o projeto usa Postgres).
+/db/*.sqlite3
+/db/*.sqlite3-*
 
-/public/assets
-
-# Ignore master key for decrypting credentials and more.
-/config/master.key
-
-/public/packs
-/public/packs-test
+# Ignore Node modules e artefatos do yarn.
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore compiled assets.
+/public/assets
+/public/packs
+/public/packs-test
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
