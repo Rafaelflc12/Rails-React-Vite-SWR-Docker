@@ -50,7 +50,7 @@ export default function Home() {
               formuladas para proporcionar saúde e vitalidade ao seu pet.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/produtos" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors">Gerenciar Produtos</Link>
+              <Link to="/products" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors">Gerenciar Produtos</Link>
               <a
                 href="#catalogo"
                 className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
