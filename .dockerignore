@@ -35,3 +35,7 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# O frontend tem imagem própria (Dockerfile em frontend/vite-project);
+# não precisa ser copiado para a imagem da API.
+/frontend/
