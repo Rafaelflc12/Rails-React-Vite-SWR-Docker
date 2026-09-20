@@ -6,7 +6,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: development
       DATABASE_URL: postgresql://${POSTGRES_USER:-rafael}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-chiara_system}
       SECRET_KEY_BASE: ${SECRET_KEY_BASE:?SECRET_KEY_BASE ausente — copie .env.example para .env}
 
