@@ -1,8 +1,11 @@
 import { Dog, ShoppingCart, Search, Menu } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useCart } from '../context/cart-context'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { totalItens } = useCart()
 
   return (
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border">
@@ -62,12 +65,16 @@ export default function Header() {
             <button className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors">
               <Search className="w-5 h-5 text-muted-foreground" />
             </button>
-            <button className="relative p-2 rounded-lg hover:bg-secondary transition-colors">
+            <Link
+              to="/carrinho"
+              aria-label="Carrinho"
+              className="relative p-2 rounded-lg hover:bg-secondary transition-colors"
+            >
               <ShoppingCart className="w-5 h-5 text-muted-foreground" />
               <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground text-xs font-medium rounded-full flex items-center justify-center">
-                0
+                {totalItens}
               </span>
-            </button>
+            </Link>
             <button
               className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

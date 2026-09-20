@@ -1,12 +1,15 @@
 import { Star, ShoppingCart } from 'lucide-react'
 import type { Produto } from '../../types/produto'
 import { formatCurrency, getAnimalLabel, cn } from '../../lib/utils'
+import { useCart } from '../../context/cart-context'
 
 interface ProdutoCardProps {
   produto: Produto
 }
 
 export default function ProdutoCard({ produto }: ProdutoCardProps) {
+  const { addItem } = useCart()
+
   const discount = produto.original_price
     ? Math.round(((produto.original_price - produto.preco) / produto.original_price) * 100)
     : 0
@@ -75,6 +78,7 @@ export default function ProdutoCard({ produto }: ProdutoCardProps) {
         {/* Button */}
         <button
           disabled={!produto.estoque}
+          onClick={() => addItem(produto)}
           className={cn(
             'mt-4 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-medium text-sm transition-all',
             produto.estoque
