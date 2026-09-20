@@ -11,7 +11,7 @@ export function ProductForm({ onSubmit }: Props) {
     brand: '',
     animal: 'dog',
     preco: 0,
-    originalPrice: undefined,
+    original_price: undefined,
     weight: '',
     image: '',
     descricao: '',
@@ -26,7 +26,7 @@ export function ProductForm({ onSubmit }: Props) {
 
     setForm(prev => ({
       ...prev,
-      [name]: name === 'preco' || name === 'rating' || name === 'estoque'
+      [name]: name === 'preco' || name === 'rating' || name === 'estoque' || name === 'original_price'
         ? Number(value)
         : value
     }))
@@ -51,6 +51,7 @@ export function ProductForm({ onSubmit }: Props) {
       </select>
 
       <input name="preco" type="number" placeholder="Preço" onChange={handleChange} />
+      <input name="original_price" type="number" placeholder="Preço original (opcional)" onChange={handleChange} />
       <input name="weight" placeholder="Peso" onChange={handleChange} />
       <input name="image" placeholder="Imagem URL" onChange={handleChange} />
       <input name="descricao" placeholder="Descrição" onChange={handleChange} />
