@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Diretórios de runtime (não são versionados nem copiados para a imagem)
+mkdir -p tmp/pids tmp/sockets tmp/cache
+
 # Remove pid antigo (evita "A server is already running")
 if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
