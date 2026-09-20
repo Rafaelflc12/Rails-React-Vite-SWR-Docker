@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_011347) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_19_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_011347) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_base_usuarios_on_email", unique: true
   end
 
   create_table "estoque_pedido_items", force: :cascade do |t|
@@ -42,7 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_011347) do
     t.index ["base_usuarios_id"], name: "index_estoque_pedidos_on_base_usuarios_id"
   end
 
-  create_table "produto_categoria", force: :cascade do |t|
+  create_table "produto_categorias", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,18 +54,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_011347) do
     t.text "descricao"
     t.decimal "preco"
     t.integer "estoque"
-    t.bigint "produto_categoria_id", null: false
+    t.bigint "produto_categoria_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "brand"
+    t.string "animal"
+    t.string "weight"
+    t.string "image"
+    t.decimal "original_price", precision: 10, scale: 2
+    t.decimal "rating", precision: 3, scale: 2
     t.index ["produto_categoria_id"], name: "index_produto_produtos_on_produto_categoria_id"
-  end
-
-  create_table "produtos", id: :serial, force: :cascade do |t|
-    t.string "nome", limit: 255, null: false
   end
 
   add_foreign_key "estoque_pedido_items", "estoque_pedidos", column: "estoque_pedidos_id"
   add_foreign_key "estoque_pedido_items", "produto_produtos", column: "produto_produtos_id"
   add_foreign_key "estoque_pedidos", "base_usuarios", column: "base_usuarios_id"
-  add_foreign_key "produto_produtos", "produto_categoria", column: "produto_categoria_id"
+  add_foreign_key "produto_produtos", "produto_categorias"
 end

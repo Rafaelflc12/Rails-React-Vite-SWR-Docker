@@ -20,4 +20,6 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL") %>
+  # DATABASE_URL é obrigatória em produção (o compose injeta e valida via :?).
+  # ENV[] (não fetch) evita KeyError ao carregar o YAML em tarefas de dev/teste.
+  url: <%= ENV["DATABASE_URL"] %>
