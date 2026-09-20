@@ -41,10 +41,12 @@ export async function fetchProdutoById(id: number): Promise<Produto | null> {
 export async function fetchFilteredProdutos(
   animal?: AnimalFilter,
   brand?: BrandFilter,
+  q?: string,
 ): Promise<Produto[]> {
   const params = new URLSearchParams()
   if (animal && animal !== 'all') params.set('animal', animal)
   if (brand && brand !== 'all') params.set('brand', brand)
+  if (q && q.trim()) params.set('q', q.trim())
   const query = params.toString()
   return apiClient<Produto[]>(`/produtos${query ? `?${query}` : ''}`)
 }

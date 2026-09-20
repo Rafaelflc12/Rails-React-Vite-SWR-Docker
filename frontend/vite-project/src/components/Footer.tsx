@@ -1,4 +1,5 @@
 import { Dog, Mail, Phone, MapPin } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -29,22 +30,17 @@ export default function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Navegação</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Início
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Catálogo
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Sobre Nós
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <a href="mailto:contato@petnutri.com.br" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Contato
                 </a>
               </li>
@@ -76,14 +72,6 @@ export default function Footer() {
           <p className="text-xs text-muted-foreground">
             2026 PetNutri. Todos os direitos reservados.
           </p>
-          <div className="flex gap-4">
-            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Política de Privacidade
-            </a>
-            <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Termos de Uso
-            </a>
-          </div>
         </div>
       </div>
     </footer>
