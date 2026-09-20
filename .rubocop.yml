@@ -1,0 +1,53 @@
+# Configuração do RuboCop para a API Rails.
+# Mantém um conjunto pragmático de cops — o objetivo é pegar bugs e manter
+# consistência sem engessar o desenvolvimento.
+
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "storage/**/*"
+
+# --- Estilo do projeto (preferências explícitas) ---
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# O projeto mistura `class Produto::Produto` (models) e `module Api; module V1`
+# (controllers) — ambos são estilos legítimos. Desliga o cop que força um só.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# --- Métricas (limites um pouco mais folgados) ---
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/routes.rb"
+    - "config/environments/**/*"
+    - "config/initializers/**/*"

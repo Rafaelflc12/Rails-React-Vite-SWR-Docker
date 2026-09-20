@@ -1,15 +1,18 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client'; // Use createRoot em vez de ReactDOM
-import App from './App';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import { SWRConfig } from 'swr'
+import App from './App'
+import './index.css'
 
-// Criação da raiz usando createRoot
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  const root = createRoot(rootElement); // Cria a raiz
-  // Renderização do componente
-  root.render(
-    <React.StrictMode>
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <SWRConfig value={{ fetcher }}>
+      <BrowserRouter>
         <App />
-    </React.StrictMode>
-  );
-}
+      </BrowserRouter>
+    </SWRConfig>
+  </StrictMode>
+)

@@ -1,25 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Produto from '../src/components/produtos/produtos';
-import Pedido from '../src/components/pedidos/pedidos';
-import Categoria from '../src/components/categorias/categorias';
-import Home from '../src/components/home/HomePage';
-import ProdutoDetalhes from './components/produtos/produtoDetalhes';
-import PedidoDetalhes from './components/pedidos/pedidosDetalhes';
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import { ProductsPage } from './pages/ProductsPage'
 
-const App: React.FC = () => {
+function App() {
   return (
-    <Router>
-      <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/produtos" element={<Produto />} />
-      <Route path="/produtos/:id" element={<ProdutoDetalhes />} />
-      <Route path="/categorias" element={<Categoria />} />
-      <Route path="/pedidos" element={<Pedido />} /> */
-      <Route path="/pedidos/:id" element={<PedidoDetalhes />} /> 
-      </Routes>
-    </Router>
-  );
-};
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<ProductsPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  )
+}
 
-export default App;
+export default App

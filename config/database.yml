@@ -1,32 +1,25 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
+# Conexão com o PostgreSQL.
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
+# Uma única fonte de verdade: a URL completa vem da variável DATABASE_URL.
+# - Em produção/container, o compose define DATABASE_URL apontando para `db:5432`.
+# - Localmente (sem Docker), os defaults abaixo apontam para o Postgres exposto
+#   na porta 5433 do host (ver docker-compose.yml).
+
 default: &default
   adapter: postgresql
-  encoding: utf8
-  database: <%= ENV['DATABASE_NAME'] %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  port: <%= ENV['DATABASE_PORT'] || '5432' %>
-  host: <%= ENV['DATABASE_HOST'] %>
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   <<: *default
-  database: chiara_system
+  url: <%= ENV.fetch("DATABASE_URL", "postgresql://rafael:password@localhost:5433/chiara_system") %>
 
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.postgres
+  url: <%= ENV.fetch("DATABASE_URL", "postgresql://rafael:password@localhost:5433/chiara_system_test") %>
 
 production:
   <<: *default
-  database: db/production.postgres
+  # DATABASE_URL é obrigatória em produção (o compose injeta e valida via :?).
+  # ENV[] (não fetch) evita KeyError ao carregar o YAML em tarefas de dev/teste.
+  url: <%= ENV["DATABASE_URL"] %>

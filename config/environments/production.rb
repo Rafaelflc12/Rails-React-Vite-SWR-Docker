@@ -5,7 +5,8 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
-  config.secret_key_base = '1234'
+  # Nunca hardcodar segredo. Definir via ENV (ex.: .env / plataforma de deploy).
+  config.secret_key_base = ENV.fetch("SECRET_KEY_BASE")
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -26,9 +27,6 @@ Rails.application.configure do
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
-
-  # Do not fall back to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -53,12 +51,12 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  config.logger = ActiveSupport::Logger.new($stdout)
+                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
+                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
