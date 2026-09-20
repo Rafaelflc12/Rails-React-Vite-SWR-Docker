@@ -8,6 +8,7 @@ module Api
         produtos = Produto::Produto.all
         produtos = produtos.where(animal: params[:animal]) if params[:animal].present?
         produtos = produtos.where(brand: params[:brand]) if params[:brand].present?
+        produtos = produtos.where("nome ILIKE ?", "%#{params[:q]}%") if params[:q].present?
         render json: produtos
       end
 

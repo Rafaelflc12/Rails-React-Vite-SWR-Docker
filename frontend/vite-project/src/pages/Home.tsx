@@ -1,33 +1,49 @@
-import { useState, useTransition } from 'react'
-import { Link } from 'react-router-dom'
+import { useTransition } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useProdutos, useBrands } from '../hooks/useProdutos'
 import FilterBar from '../components/FilterBar'
 import ProductGrid from '../components/produtos/ProdutoGrid'
 import type { AnimalFilter, BrandFilter } from '../types/produto'
 import { Check, Truck, Headphones } from 'lucide-react'
 
+const ANIMAIS: AnimalFilter[] = ['all', 'dog', 'cat', 'bird', 'fish', 'rodent']
+
+function parseAnimal(value: string | null): AnimalFilter {
+  return (ANIMAIS as string[]).includes(value ?? '') ? (value as AnimalFilter) : 'all'
+}
+
 export default function Home() {
-  const [selectedAnimal, setSelectedAnimal] = useState<AnimalFilter>('all')
-  const [selectedBrand, setSelectedBrand] = useState<BrandFilter>('all')
+  const [searchParams, setSearchParams] = useSearchParams()
   const [isPending, startTransition] = useTransition()
+
+  const selectedAnimal = parseAnimal(searchParams.get('animal'))
+  const selectedBrand = (searchParams.get('brand') as BrandFilter) ?? 'all'
+  const search = searchParams.get('q') ?? ''
 
   const { produtos, isLoading, isValidating } = useProdutos({
     animal: selectedAnimal,
     brand: selectedBrand,
+    q: search || undefined,
   })
   const { brands } = useBrands()
 
-  // Handlers com useTransition para filtros mais fluidos
-  const handleAnimalChange = (animal: AnimalFilter) => {
-    startTransition(() => {
-      setSelectedAnimal(animal)
+  // Filtros e busca vivem na URL: os links do header ("Cães", "Gatos"...) e a
+  // busca navegam direto para o estado desejado, e o botão de voltar funciona.
+  function setParam(key: string, value: string | null) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      if (value) next.set(key, value)
+      else next.delete(key)
+      return next
     })
   }
 
+  const handleAnimalChange = (animal: AnimalFilter) => {
+    startTransition(() => setParam('animal', animal === 'all' ? null : animal))
+  }
+
   const handleBrandChange = (brand: BrandFilter) => {
-    startTransition(() => {
-      setSelectedBrand(brand)
-    })
+    startTransition(() => setParam('brand', brand === 'all' ? null : brand))
   }
 
   // Mostrar loading apenas no carregamento inicial, não durante transições
@@ -58,7 +74,7 @@ export default function Home() {
                 Ver Catálogo
               </a>
               <a
-                href="#"
+                href="mailto:contato@petnutri.com.br"
                 className="inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground font-medium rounded-lg hover:bg-secondary/80 transition-colors"
               >
                 Fale Conosco
@@ -75,10 +91,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-foreground">
-              Nosso Catálogo
+              {search ? `Resultados para "${search}"` : 'Nosso Catálogo'}
             </h2>
             <p className="mt-2 text-muted-foreground">
               {produtos.length} produtos disponíveis
+              {search && (
+                <Link to="/" className="ml-2 text-primary hover:underline">
+                  Limpar busca
+                </Link>
+              )}
             </p>
           </div>
 

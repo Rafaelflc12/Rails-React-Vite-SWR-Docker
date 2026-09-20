@@ -5,23 +5,24 @@ import type { Produto, AnimalFilter, BrandFilter } from '../types/produto'
 interface UseProdutosOptions {
   animal?: AnimalFilter
   brand?: BrandFilter
+  q?: string
 }
 
 // Fetchers separados
-const produtosFetcher = async ([, animal, brand]: [string, AnimalFilter, BrandFilter]) => {
-  return fetchFilteredProdutos(animal, brand)
+const produtosFetcher = async ([, animal, brand, q]: [string, AnimalFilter, BrandFilter, string | undefined]) => {
+  return fetchFilteredProdutos(animal, brand, q)
 }
 
 const brandsFetcher = () => Promise.resolve(fetchBrands())
 
 // Preload
-preload(['produtos', 'all', 'all'], produtosFetcher)
+preload(['produtos', 'all', 'all', undefined], produtosFetcher)
 preload('brands', brandsFetcher)
 
 export function useProdutos(options: UseProdutosOptions = {}) {
-  const { animal = 'all', brand = 'all' } = options
+  const { animal = 'all', brand = 'all', q } = options
 
-  const key = ['produtos', animal, brand] as const
+  const key = ['produtos', animal, brand, q] as const
 
   const { data, error, isLoading, isValidating, mutate } = useSWR<Produto[]>(
     key,
