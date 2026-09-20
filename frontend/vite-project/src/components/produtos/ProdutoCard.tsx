@@ -7,8 +7,8 @@ interface ProdutoCardProps {
 }
 
 export default function ProdutoCard({ produto }: ProdutoCardProps) {
-  const discount = produto.originalPrice
-    ? Math.round(((produto.originalPrice - produto.preco) / produto.originalPrice) * 100)
+  const discount = produto.original_price
+    ? Math.round(((produto.original_price - produto.preco) / produto.original_price) * 100)
     : 0
 
   return (
@@ -65,9 +65,9 @@ export default function ProdutoCard({ produto }: ProdutoCardProps) {
           <span className="text-xl font-bold text-foreground">
             {formatCurrency(produto.preco)}
           </span>
-          {produto.originalPrice && (
+          {produto.original_price && (
             <span className="text-sm text-muted-foreground line-through">
-              {formatCurrency(produto.originalPrice)}
+              {formatCurrency(produto.original_price)}
             </span>
           )}
         </div>

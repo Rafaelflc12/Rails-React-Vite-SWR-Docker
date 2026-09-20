@@ -4,7 +4,7 @@ export interface Produto {
   brand: string
   animal: 'dog' | 'cat' | 'bird' | 'fish' | 'rodent'
   preco: number
-  originalPrice?: number
+  original_price?: number
   weight: string
   image: string
   descricao: string
